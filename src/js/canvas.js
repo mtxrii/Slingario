@@ -15,7 +15,7 @@ function setup() {
     for (let i = 0; i < startingBlobs; i++) {
         let x = random(-width, width);
         let y = random(-height, height);
-        blobs[i] = new Blob(x, y, 16);
+        blobs[i] = new Blob(x, y, random(10, 20));
     }
 }
 
