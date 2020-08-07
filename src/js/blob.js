@@ -1,8 +1,8 @@
 class Blob {
     constructor(x, y, r) {
         this.pos = createVector(x, y);
-        this.r = r;
         this.vel = createVector(0, 0);
+        this.r = r;
         this.anchored = false;
     }
 
@@ -37,5 +37,17 @@ class Blob {
 
     release() {
         this.anchored = false;
+    }
+
+    get anchoredState() {
+        return this.anchored;
+    }
+
+    get xPos() {
+        return this.pos.x;
+    }
+
+    get yPos() {
+        return this.pos.y;
     }
 }

@@ -1,8 +1,13 @@
 let blob;
-const startingBlobs = 15;
+let anchorImg;
+const startingBlobs = 100;
 
 let blobs = [];
 let zoom = 1;
+
+function preload() {
+    anchorImg = loadImage('src/images/anchor.png');
+}
 
 function setup() {
     createCanvas(600, 600);
@@ -31,6 +36,10 @@ function draw() {
 
     blob.show();
     blob.update();
+
+    if (blob.anchoredState) {
+        image(anchorImg, blob.xPos - 27, blob.yPos - 27, anchorImg.width/15, anchorImg.height/15);
+    }
 }
 
 function keyPressed() {
