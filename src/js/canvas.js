@@ -10,7 +10,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(600, 600);
+    createCanvas(displayWidth, displayHeight*0.78);
     blob = new Blob(0, 0, 64);
     for (let i = 0; i < startingBlobs; i++) {
         let x = random(-width, width);
