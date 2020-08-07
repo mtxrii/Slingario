@@ -6,10 +6,9 @@ class Blob {
         this.anchored = false;
     }
 
-    update() {
-        let newvel = createVector(mouseX - width / 2, mouseY - height / 2);
+    update(newvel, speed) {
         if (!this.anchored) {
-            newvel.setMag(3);
+            newvel.setMag(speed);
             this.vel.lerp(newvel, 0.1);
             this.pos.add(this.vel);
         }
@@ -49,5 +48,9 @@ class Blob {
 
     get yPos() {
         return this.pos.y;
+    }
+
+    get direction() {
+        return this.vel;
     }
 }

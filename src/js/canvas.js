@@ -29,13 +29,14 @@ function draw() {
 
     for (let i = blobs.length - 1; i >= 0; i--) {
         blobs[i].show();
+        blobs[i].update(blobs[i].direction.add(random(-1.5, 1.5), random(-1.5, 1.5)), 1);
         if (blob.eats(blobs[i])) {
             blobs.splice(i, 1);
         }
     }
 
     blob.show();
-    blob.update();
+    blob.update(createVector(mouseX - width / 2, mouseY - height / 2), 3);
 
     if (blob.anchoredState) {
         image(anchorImg, blob.xPos - 27, blob.yPos - 27, anchorImg.width/15, anchorImg.height/15);
