@@ -38,6 +38,7 @@ function draw() {
 
     for (let j = senders.length - 1; j >= 0; j--) {
         senders[j].show();
+        senders[j].update(senders[j].direction.add(senders[j].xPos, senders[j].yPos, 7));
     }
 
     blob.show();

@@ -36,7 +36,7 @@ class Blob {
         const sum = (Math.PI * this.r * this.r) - (Math.PI * mass * mass);
         this.r = Math.sqrt(sum / Math.PI);
 
-        sender.update(createVector(mouseX - width / 2, mouseY - height / 2), 5);
+        sender.update(createVector(mouseX , mouseY), 7);
         return sender;
     }
 
