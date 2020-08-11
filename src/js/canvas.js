@@ -3,6 +3,7 @@ let anchorImg;
 const startingBlobs = 100;
 
 let blobs = [];
+let senders = [];
 let zoom = 1;
 
 function preload() {
@@ -35,6 +36,10 @@ function draw() {
         }
     }
 
+    for (let j = senders.length - 1; j >= 0; j--) {
+        senders[j].show();
+    }
+
     blob.show();
     blob.update(createVector(mouseX - width / 2, mouseY - height / 2), 3);
 
@@ -54,6 +59,11 @@ function keyReleased() {
     blob.release();
 }
 
-function random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+async function mouseClicked() {
+    if (blob.getCanShoot) {
+        senders.push(blob.shoot(30));
+        blob.setCanShoot(false);
+        await sleep(2000);
+        blob.setCanShoot(true);
+    }
 }

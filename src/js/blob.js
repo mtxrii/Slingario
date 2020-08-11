@@ -4,6 +4,7 @@ class Blob {
         this.vel = createVector(0, 0);
         this.r = r;
         this.anchored = false;
+        this.canShoot = true;
     }
 
     update(newvel, speed) {
@@ -30,6 +31,15 @@ class Blob {
             return false;
     }
 
+    shoot(mass) {
+        const sender = new Blob(this.pos.x, this.pos.y, mass);
+        const sum = (Math.PI * this.r * this.r) - (Math.PI * mass * mass);
+        this.r = Math.sqrt(sum / Math.PI);
+
+        sender.update(createVector(mouseX - width / 2, mouseY - height / 2), 5);
+        return sender;
+    }
+
     anchor() {
         this.anchored = true;
     }
@@ -52,5 +62,13 @@ class Blob {
 
     get direction() {
         return this.vel;
+    }
+
+    get getCanShoot() {
+        return this.canShoot && this.r > 50;
+    }
+
+    setCanShoot(bool) {
+        this.canShoot = bool;
     }
 }
