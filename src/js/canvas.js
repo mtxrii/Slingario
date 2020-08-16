@@ -8,11 +8,14 @@ let zoom = 1;
 
 let bgColor;
 let waxing;
+let score;
+const startTime = new Date();
 
 function preload() {
     anchorImg = loadImage('src/images/anchor.png');
     bgColor = 1;
     waxing = true;
+    score = 0;
 }
 
 function setup() {
@@ -43,9 +46,14 @@ function draw() {
         }
     }
 
-    for (let j = senders.length - 1; j >= 0; j--) {
-        senders[j].show();
-        senders[j].update(senders[j].direction.add(senders[j].xPos - width / 2, senders[j].yPos - height / 2), 5);
+    for (let i = senders.length - 1; i >= 0; i--) {
+        senders[i].show();
+        senders[i].update(senders[i].direction.add(senders[i].xPos - width / 2, senders[i].yPos - height / 2), 5);
+        for (let j = blobs.length - 1; j >= 0; j--) {
+            if (senders[i].eats(blobs[j])) {
+                blobs.splice(j, 1);
+            }
+        }
     }
 
     blob.show();
@@ -53,6 +61,22 @@ function draw() {
 
     if (blob.anchoredState) {
         image(anchorImg, blob.xPos - 27, blob.yPos - 27, anchorImg.width/15, anchorImg.height/15);
+    }
+
+    textSize(40);
+    if (blobs.length > 0) {
+        text('BLOBS: ' + blobs.length, 10, 30);
+    }
+    else {
+        if (score == 0) {
+            const endTime = new Date();
+            // score = (mass * 10) / seconds taken to finish
+            score = (blob.mass * 10) / ((endTime.getTime() - startTime.getTime()) / 1000);
+        }
+        fill(0, 102, 153);
+        text('ALL BLOBS KILLED!', 10, 30);
+        fill(235, 64, 52);
+        text('SCORE: ' + Math.trunc(score), 10, 70);
     }
 }
 
