@@ -6,12 +6,17 @@ let blobs = [];
 let senders = [];
 let zoom = 1;
 
+let bgColor;
+let waxing;
+
 function preload() {
     anchorImg = loadImage('src/images/anchor.png');
+    bgColor = 1;
+    waxing = true;
 }
 
 function setup() {
-    createCanvas(displayWidth, displayHeight*0.78);
+    createCanvas(displayWidth, displayHeight*0.79);
     blob = new Blob(0, 0, 64);
     for (let i = 0; i < startingBlobs; i++) {
         let x = random(-width, width);
@@ -21,7 +26,9 @@ function setup() {
 }
 
 function draw() {
-    background(0);
+    bgColor = gradient(bgColor);
+    background(bgColor);
+
     translate(width/2, height/2);
     const newzoom = 64 / blob.r;
     zoom = lerp(zoom, newzoom, 0.1);
@@ -66,5 +73,22 @@ async function mouseClicked() {
         blob.setCanShoot(false);
         await sleep(2000);
         blob.setCanShoot(true);
+    }
+}
+
+function gradient(i) {
+    if (waxing) {
+        if (i >= 30) {
+            waxing = false;
+            return i - 0.1;
+        }
+        return i + 0.1;
+    }
+    else {
+        if (i <= 0) {
+            waxing = true;
+            return i + 0.1;
+        }
+        return i - 0.1;
     }
 }
